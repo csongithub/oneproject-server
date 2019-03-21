@@ -1,0 +1,89 @@
+/**
+ * 
+ */
+package com.oneproject.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * @author chandan
+ *
+ */
+@Entity
+@Table(name = "SUPPLIER")
+public class Supplier {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "SUPPLIER_ID")
+	private Long id;
+	
+	@Column(name = "SUPPLIER_NAME")
+	private String supplierName;
+	
+	@Column(name = "OWNER")
+	private String owner;
+	
+	@Column(name = "MATERILAS")
+	private String materials;
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the supplierName
+	 */
+	public String getSupplierName() {
+		return supplierName;
+	}
+
+	/**
+	 * @param supplierName the supplierName to set
+	 */
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+
+	/**
+	 * @return the owner
+	 */
+	public String getOwner() {
+		return owner;
+	}
+
+	/**
+	 * @param owner the owner to set
+	 */
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	/**
+	 * @return the materials
+	 */
+	public String getMaterials() {
+		return materials;
+	}
+
+	/**
+	 * @param materials the materials to set
+	 */
+	public void setMaterials(String materials) {
+		this.materials = materials;
+	}
+}
