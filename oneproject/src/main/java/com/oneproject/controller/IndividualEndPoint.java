@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oneproject.model.Individual;
 import com.oneproject.service.IndividualService;
+import com.oneproject.wrapper.IndividualAddressWrapper;
 import com.oneproject.wrapper.KYCDataWrapper;
 
 @RestController
@@ -54,6 +55,13 @@ public class IndividualEndPoint {
 	@PutMapping(value = "confirmKYC")
 	public List<KYCDataWrapper> confirmKYC(@RequestBody KYCDataWrapper kycData){
 		return service.confirmKYC(kycData);
+	}
+	
+	
+	
+	@GetMapping(value = "getIndividualsAddress")
+	public List<IndividualAddressWrapper> getIndividualsAddress(){
+		return service.getIndividualsAddress();
 	}
 
 }

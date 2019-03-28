@@ -9,9 +9,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.oneproject.model.Address;
 import com.oneproject.model.Individual;
 import com.oneproject.model.IndividualKYC;
 import com.oneproject.persistence.IndividualPersistence;
+import com.oneproject.wrapper.IndividualAddressWrapper;
 import com.oneproject.wrapper.KYCDataWrapper;
 
 /**
@@ -45,7 +48,7 @@ public class IndividualService{
 		if(individual.getMiddleName() == null) {
 			individual.setMiddleName("");
 		}
-		if(individual.getLastName() == null) {
+		if(individual.getLastName() == null) {	
 			individual.setLastName("");
 		}
 		return persistence.addOrUpdateIndividual(individual);
@@ -74,8 +77,6 @@ public class IndividualService{
 				kyc.setStatus(individualKYC.getStatus());
 				kyc.setConfirmationDate(individualKYC.getConfirmationDate());
 			}else {
-				//kyc.setDocument("NOT UPDATED");
-				//kyc.setDocumentId("NOT UPDATED");
 				kyc.setStatus("Not Confirmed");
 				kyc.setConfirmationDate(null);
 			}
@@ -101,4 +102,48 @@ public class IndividualService{
 		}
 		return this.getKYCData();
 	}
+	
+	
+	
+	public List<IndividualAddressWrapper> getIndividualsAddress(){
+		List<IndividualAddressWrapper> individualsAddress = new ArrayList<>();
+		List<Individual> individulas = persistence.getAllIndividuals();
+		for(Individual individual : individulas) {
+			IndividualAddressWrapper wrapper = new IndividualAddressWrapper();
+			wrapper.setIndividualId(individual.getIndividualId());
+			wrapper.setFullName(individual.getFirstName() + " " + individual.getMiddleName() + " " + individual.getLastName());
+			Address address = individual.getAddress();
+			if(address != null) {
+				wrapper.setHouseNumber(address.getHouseNumber());
+				wrapper.setVillage(address.getVillage());
+				wrapper.setArea(address.getArea());
+				wrapper.setStreet(address.getStreet());
+				wrapper.setPostOffice(address.getPostOffice());
+				wrapper.setPoliceStation(address.getPoliceStation());
+				if(address.getLineOne() != null) {
+					String line  = address.getLineOne();
+					if(address.getLineTwo() != null) {
+						line = line + "\n" + address.getLineTwo();
+					}
+					wrapper.setLine(line);
+				}
+				wrapper.setDistrict(address.getDistrict());
+				wrapper.setCity(address.getCity());
+				wrapper.setState(address.getState());
+				wrapper.setCountry(address.getCountry());
+				wrapper.setZip(address.getZip());
+				if(address.getPhoneOne() != null) {
+					String phones = address.getPhoneOne();
+					if(address.getPhoneTwo() != null) {
+						phones = phones + "\n" + address.getPhoneTwo();
+					}
+					wrapper.setPhones(phones);
+				}
+				wrapper.setEmail(address.getEmail());
+			}
+			individualsAddress.add(wrapper);
+		}
+		return individualsAddress;
+	}
+	
 }
