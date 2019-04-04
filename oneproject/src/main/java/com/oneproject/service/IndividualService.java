@@ -16,6 +16,7 @@ import com.oneproject.model.IndividualKYC;
 import com.oneproject.persistence.IndividualPersistence;
 import com.oneproject.wrapper.IndividualAddressWrapper;
 import com.oneproject.wrapper.KYCDataWrapper;
+import com.oneproject.wrapper.SummarizedIndividual;
 
 /**
  * @author chandan
@@ -144,6 +145,19 @@ public class IndividualService{
 			individualsAddress.add(wrapper);
 		}
 		return individualsAddress;
+	}
+	
+	
+	
+	public List<SummarizedIndividual> getSummarizedIndividuals(){
+		return persistence.getSummarizedIndividuals();
+	}
+	
+	
+	
+	
+	public Address getIndividualAddressById(Long individualId) {
+		return null;
 	}
 	
 }

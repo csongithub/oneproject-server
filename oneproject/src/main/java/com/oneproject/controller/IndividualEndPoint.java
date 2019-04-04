@@ -16,6 +16,7 @@ import com.oneproject.model.Individual;
 import com.oneproject.service.IndividualService;
 import com.oneproject.wrapper.IndividualAddressWrapper;
 import com.oneproject.wrapper.KYCDataWrapper;
+import com.oneproject.wrapper.SummarizedIndividual;
 
 @RestController
 @RequestMapping(value = "IndividualEndPoint")
@@ -63,5 +64,11 @@ public class IndividualEndPoint {
 	public List<IndividualAddressWrapper> getIndividualsAddress(){
 		return service.getIndividualsAddress();
 	}
-
+	
+	
+	
+	@GetMapping(value = "getSummarizedIndividuals")
+	public List<SummarizedIndividual> getSummarizedIndividuals(){
+		return service.getSummarizedIndividuals();
+	}
 }

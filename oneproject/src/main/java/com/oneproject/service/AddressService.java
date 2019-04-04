@@ -41,5 +41,11 @@ public class AddressService {
 		}
 		return getAllAddresses();
 	}
+	
+	
+	
+	public Address getIndividualAddress(Long individulaId) {
+		return persistence.getIndividualAddress(individulaId);
+	}
 
 }

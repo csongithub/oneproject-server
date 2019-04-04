@@ -58,6 +58,16 @@ public class Individual {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ADDRESS_ID", unique = true)
 	private Address address;
+	
+	public Individual() {}
+	
+	
+	public Individual(Long individualId, String firstName, String middleName, String lastName) {
+		this.individualId = individualId;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+	}
 
 	/**
 	 * @return the individualId

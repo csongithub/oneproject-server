@@ -47,5 +47,12 @@ public class AddressEndPoint {
 	public List<Address> addOrUpdateAddress(@RequestBody Address address){
 		return service.addOrUpdateAddress(address);
 	}
+	
+	
+	
+	@GetMapping(value = "getIndividualAddress/{individulaId}")
+	public Address getIndividualAddress(@PathVariable("individulaId")Long individulaId) {
+		return service.getIndividualAddress(individulaId);
+	}
 
 }
