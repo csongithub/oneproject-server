@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import com.oneproject.model.Address;
 import com.oneproject.repository.AddressRepository;
-import com.oneproject.wrapper.SummarizedIndividual;
 
 /**
  * @author chandan
@@ -27,7 +26,7 @@ public class AddressPersistence extends AbstractPersistence{
 	@Autowired
 	private AddressRepository repository;
 	
-	
+		
 	
 	public List<Address> getAllAddresses(){
 		return repository.findAll();

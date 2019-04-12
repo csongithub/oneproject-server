@@ -4,6 +4,7 @@
 package com.oneproject.wrapper;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author a698219
@@ -19,18 +20,28 @@ public class SummarizedIndividual implements Serializable {
 	private String firstName;
 	private String middleName;
 	private String lastName;
+	private String position;
+	private Date joiningDate;
+	private String fullName;
 	
 	public SummarizedIndividual() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public SummarizedIndividual(Long individualId, String firstName, String middleName, String lastName) {
+	public SummarizedIndividual(Long individualId, 
+								String firstName, 
+								String middleName, 
+								String lastName, 
+								String position, 
+								Date joiningDate) {
 		super();
 		this.individualId = individualId;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
+		this.position = position;
+		this.joiningDate = joiningDate;
 	}
 
 	/**
@@ -87,5 +98,47 @@ public class SummarizedIndividual implements Serializable {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	/**
+	 * @return the position
+	 */
+	public String getPosition() {
+		return position;
+	}
+
+	/**
+	 * @param position the position to set
+	 */
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	/**
+	 * @return the joiningDate
+	 */
+	public Date getJoiningDate() {
+		return joiningDate;
+	}
+
+	/**
+	 * @param joiningDate the joiningDate to set
+	 */
+	public void setJoiningDate(Date joiningDate) {
+		this.joiningDate = joiningDate;
+	}
+
+	/**
+	 * @return the fullName
+	 */
+	public String getFullName() {
+		return fullName;
+	}
+
+	/**
+	 * @param fullName the fullName to set
+	 */
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 }

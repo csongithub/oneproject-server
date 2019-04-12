@@ -31,6 +31,7 @@ public class AdminEnumerationsPreferencesService{
 				result.setProjectTypeJson(result.getProjectType() != null ? new String(result.getProjectType(), "US-ASCII") : null);
 				result.setKycSupportedDocsJson(result.getKycSupportedDocs() != null ? new String(result.getKycSupportedDocs(), "US-ASCII") : null);
 				result.setMaterialTypeJson(result.getMaterialType() != null ? new String(result.getMaterialType(), "US-ASCII") : null);
+				result.setSalaryIntervalJson(result.getSalaryInterval() != null ? new String(result.getSalaryInterval(), "US-ASCII") : null);
 			} catch (Throwable e) {
 				throw new RuntimeException("erroe occuerd in system");
 			}
@@ -39,6 +40,7 @@ public class AdminEnumerationsPreferencesService{
 			result.setProjectType(null);
 			result.setKycSupportedDocs(null);
 			result.setMaterialType(null);
+			result.setSalaryInterval(null);
 		}else {
 			result = new AdminEnumerationsPreferences();
 		}
@@ -69,6 +71,8 @@ public class AdminEnumerationsPreferencesService{
 				break;
 			case "MATERIAL_TYPE":
 				oldEnums.get(0).setMaterialType(getBytes(preferences.getValue()));
+			case "SAL_INTERVAL":
+				oldEnums.get(0).setSalaryInterval(getBytes(preferences.getValue()));
 			}
 			persistence.addOrUpdateEnumeration(oldEnums.get(0));
 			return getPreferences();
@@ -98,6 +102,9 @@ public class AdminEnumerationsPreferencesService{
 				preferences.setKycSupportedDocs(getBytes(preferences.getValue()));
 			}else if("MATERIAL_TYPE".equalsIgnoreCase(preferences.getPreferencesType().trim())) {
 				preferences.setMaterialType(getBytes(preferences.getValue()));
+			}
+			else if("SAL_INTERVAL".equalsIgnoreCase(preferences.getPreferencesType().trim())) {
+				preferences.setSalaryInterval(getBytes(preferences.getValue()));
 			}
 		}catch(Throwable e) {
 			throw new RuntimeException("Invalid Data");

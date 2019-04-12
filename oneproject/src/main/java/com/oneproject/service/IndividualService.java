@@ -7,13 +7,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oneproject.model.Address;
 import com.oneproject.model.Individual;
 import com.oneproject.model.IndividualKYC;
+import com.oneproject.model.Salary;
 import com.oneproject.persistence.IndividualPersistence;
+import com.oneproject.persistence.SalaryPersistence;
 import com.oneproject.wrapper.IndividualAddressWrapper;
 import com.oneproject.wrapper.KYCDataWrapper;
 import com.oneproject.wrapper.SummarizedIndividual;
@@ -26,7 +30,10 @@ import com.oneproject.wrapper.SummarizedIndividual;
 public class IndividualService{
 
 	@Autowired
-	private IndividualPersistence persistence; 
+	private IndividualPersistence persistence;
+	
+	@Autowired
+	private SalaryPersistence salPersistence;
 	
 	
 	
@@ -106,6 +113,7 @@ public class IndividualService{
 	
 	
 	
+	@Deprecated
 	public List<IndividualAddressWrapper> getIndividualsAddress(){
 		List<IndividualAddressWrapper> individualsAddress = new ArrayList<>();
 		List<Individual> individulas = persistence.getAllIndividuals();
@@ -150,14 +158,23 @@ public class IndividualService{
 	
 	
 	public List<SummarizedIndividual> getSummarizedIndividuals(){
-		return persistence.getSummarizedIndividuals();
+		List<SummarizedIndividual> individuals = persistence.getSummarizedIndividuals();
+		for(SummarizedIndividual individual : individuals) {
+			individual.setFullName(individual.getFirstName() + " " + individual.getMiddleName() + " " + individual.getLastName());
+		}
+		return individuals;
+		
 	}
 	
 	
 	
-	
-	public Address getIndividualAddressById(Long individualId) {
-		return null;
+	public Salary getIndividualActiveSalary(Long individualId){
+		Salary salary = null;
+		try {
+			salary = salPersistence.getIndividualActiveSalary(individualId);
+		}catch(NoResultException e) {
+			
+		}
+		return salary;
 	}
-	
 }

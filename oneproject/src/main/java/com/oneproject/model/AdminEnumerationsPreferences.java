@@ -39,6 +39,9 @@ public class AdminEnumerationsPreferences {
 	@Transient
 	private String materialTypeJson;
 	
+	@Transient
+	private String salaryIntervalJson;
+	
 	@Column(name = "GENDER", length=10000)
 	private byte[] gender;
 	
@@ -53,6 +56,9 @@ public class AdminEnumerationsPreferences {
 	
 	@Column(name = "MATERIAL_TYPES", length=10000)
 	private byte[] materialType;
+	
+	@Column(name = "SAL_INTERVAL", length=10000)
+	private byte[] salaryInterval;
 	
 	@Transient
 	private String preferencesType;
@@ -213,5 +219,29 @@ public class AdminEnumerationsPreferences {
 	 */
 	public void setMaterialType(byte[] materialType) {
 		this.materialType = materialType;
+	}
+	/**
+	 * @return the salaryIntervalJson
+	 */
+	public String getSalaryIntervalJson() {
+		return salaryIntervalJson;
+	}
+	/**
+	 * @param salaryIntervalJson the salaryIntervalJson to set
+	 */
+	public void setSalaryIntervalJson(String salaryIntervalJson) {
+		this.salaryIntervalJson = salaryIntervalJson;
+	}
+	/**
+	 * @return the salaryInterval
+	 */
+	public byte[] getSalaryInterval() {
+		return salaryInterval;
+	}
+	/**
+	 * @param salaryInterval the salaryInterval to set
+	 */
+	public void setSalaryInterval(byte[] salaryInterval) {
+		this.salaryInterval = salaryInterval;
 	}
 }

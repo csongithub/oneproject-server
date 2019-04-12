@@ -19,7 +19,7 @@ import com.oneproject.wrapper.SummarizedIndividual;
 @Component
 public class IndividualPersistence extends AbstractPersistence {
 	
-	private static final String GET_SUMMARIZED_INDIVIDUALS = "SELECT new com.oneproject.wrapper.SummarizedIndividual(ind.individualId, ind.firstName, ind.middleName, ind.lastName) FROM Individual ind";
+	private static final String GET_SUMMARIZED_INDIVIDUALS = "SELECT new com.oneproject.wrapper.SummarizedIndividual(ind.individualId, ind.firstName, ind.middleName, ind.lastName, ind.position, ind.joiningDate) FROM Individual ind";
 	
 	@Autowired
 	private IndividualRepository repository;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oneproject.model.Individual;
+import com.oneproject.model.Salary;
 import com.oneproject.service.IndividualService;
 import com.oneproject.wrapper.IndividualAddressWrapper;
 import com.oneproject.wrapper.KYCDataWrapper;
@@ -59,7 +60,7 @@ public class IndividualEndPoint {
 	}
 	
 	
-	
+	@Deprecated
 	@GetMapping(value = "getIndividualsAddress")
 	public List<IndividualAddressWrapper> getIndividualsAddress(){
 		return service.getIndividualsAddress();
@@ -70,5 +71,12 @@ public class IndividualEndPoint {
 	@GetMapping(value = "getSummarizedIndividuals")
 	public List<SummarizedIndividual> getSummarizedIndividuals(){
 		return service.getSummarizedIndividuals();
+	}
+	
+	
+	
+	@GetMapping(value = "getIndividualsSalary/{individualId}")
+	public Salary getIndividualsSalary(@PathVariable("individualId") Long individualId){
+		return service.getIndividualActiveSalary(individualId);
 	}
 }
