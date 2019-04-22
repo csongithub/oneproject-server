@@ -3,11 +3,8 @@
  */
 package com.oneproject.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.oneproject.model.AdminEnumerationsPreferences;
 import com.oneproject.persistence.AdminEnumerationsPreferencesPersistence;
 
@@ -21,9 +18,9 @@ public class AdminEnumerationsPreferencesService{
 	@Autowired
 	private AdminEnumerationsPreferencesPersistence persistence;
 	
-	public AdminEnumerationsPreferences getPreferences() {
-		List<AdminEnumerationsPreferences> list = persistence.getAllEnumerations();
-		AdminEnumerationsPreferences result =  list != null && list.size() >0 ?list.get(0) : null;
+	public AdminEnumerationsPreferences getClientPreferences(Long clientId) {
+		AdminEnumerationsPreferences enums = persistence.getClientEnumerations(clientId);
+		AdminEnumerationsPreferences result =  enums != null ?enums : null;
 		if(result != null) {
 			try {
 				result.setGenderJson(result.getGender() != null ? new String(result.getGender(), "US-ASCII") : null);
@@ -50,32 +47,32 @@ public class AdminEnumerationsPreferencesService{
 	
 	
 	public AdminEnumerationsPreferences addOrUpdatePreferences(AdminEnumerationsPreferences preferences){
-		List<AdminEnumerationsPreferences> oldEnums = persistence.getAllEnumerations();
-		if(oldEnums == null || oldEnums.size() == 0) {
+		AdminEnumerationsPreferences oldEnums = persistence.getClientEnumerations(preferences.getClientId());
+		if(oldEnums == null) {
 			convertToByte(preferences);
 			persistence.addOrUpdateEnumeration(preferences);
-			return getPreferences();
+			return getClientPreferences(preferences.getClientId());
 		}else {
 			switch(preferences.getPreferencesType()) {
 			case "GENDER":
-				oldEnums.get(0).setGender(getBytes(preferences.getValue()));
+				oldEnums.setGender(getBytes(preferences.getValue()));
 				break;
 			case "POSITION":
-				oldEnums.get(0).setPosition(getBytes(preferences.getValue()));
+				oldEnums.setPosition(getBytes(preferences.getValue()));
 				break;
 			case "PROJECT_TYPE":
-				oldEnums.get(0).setProjectType(getBytes(preferences.getValue()));
+				oldEnums.setProjectType(getBytes(preferences.getValue()));
 				break;
 			case "KYC_DOCS":
-				oldEnums.get(0).setKycSupportedDocs(getBytes(preferences.getValue()));
+				oldEnums.setKycSupportedDocs(getBytes(preferences.getValue()));
 				break;
 			case "MATERIAL_TYPE":
-				oldEnums.get(0).setMaterialType(getBytes(preferences.getValue()));
+				oldEnums.setMaterialType(getBytes(preferences.getValue()));
 			case "SAL_INTERVAL":
-				oldEnums.get(0).setSalaryInterval(getBytes(preferences.getValue()));
+				oldEnums.setSalaryInterval(getBytes(preferences.getValue()));
 			}
-			persistence.addOrUpdateEnumeration(oldEnums.get(0));
-			return getPreferences();
+			persistence.addOrUpdateEnumeration(oldEnums);
+			return getClientPreferences(preferences.getClientId());
 		}
 	}
 	

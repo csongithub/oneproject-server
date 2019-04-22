@@ -40,9 +40,23 @@ public class ProjectEndPoint {
 	
 	
 	
+	@GetMapping(value = "getClientProjects/{clientId}")
+	public List<Project> getClientProjects(@PathVariable("clientId") Long clientId){
+		return service.getClientProjects(clientId);
+	}
+	
+	
+	
 	@GetMapping(value = "getSummarizedProjects")
 	public List<SummarizedProject> getSummarizedProjects(){
 		return service.getSummarizedProjects();
+	}
+	
+	
+	
+	@GetMapping(value = "getSummarizedProjectsForClient/{clientId}")
+	public List<SummarizedProject> getSummarizedProjectsForClient(@PathVariable("clientId") Long clientId){
+		return service.getSummarizedProjectsForClient(clientId);
 	}
 	
 	

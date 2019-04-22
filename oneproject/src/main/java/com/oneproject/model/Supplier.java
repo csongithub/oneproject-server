@@ -3,10 +3,13 @@
  */
 package com.oneproject.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -28,8 +31,12 @@ public class Supplier {
 	@Column(name = "OWNER")
 	private String owner;
 	
-	@Column(name = "MATERILAS")
+	@Column(name = "MATERIALS")
 	private String materials;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ADDRESS_ID", unique = true)
+	private Address address;
 
 	/**
 	 * @return the id
@@ -85,5 +92,19 @@ public class Supplier {
 	 */
 	public void setMaterials(String materials) {
 		this.materials = materials;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

@@ -43,6 +43,12 @@ public class IndividualService{
 	
 	
 	
+	public List<Individual> getClientIndividuals(Long clientId){
+		return persistence.getClientIndividuals(clientId);
+	}
+	
+	
+	
 	public List<Individual> addOrUpdateIndividual(Individual individual) {
 		if(individual.getFirstName() == null) {
 			throw new RuntimeException("First Name Not Found");
@@ -70,9 +76,9 @@ public class IndividualService{
 	
 	
 	
-	public List<KYCDataWrapper> getKYCData(){
+	public List<KYCDataWrapper> getKYCData(Long clientId){
 		List<KYCDataWrapper> kycDetails = new ArrayList<KYCDataWrapper>();
-		List<Individual> individuals = persistence.getAllIndividuals();
+		List<Individual> individuals = persistence.getClientIndividuals(clientId);
 		for(Individual individual : individuals) {
 			KYCDataWrapper kyc= new KYCDataWrapper();
 			String fullName = individual.getFirstName() + " " +individual.getMiddleName() +" " +individual.getLastName();
@@ -108,7 +114,7 @@ public class IndividualService{
 			individual.setKyc(existingKYC);
 			persistence.addOrUpdateIndividual(individual);
 		}
-		return this.getKYCData();
+		return this.getKYCData(kycData.getClientId());
 	}
 	
 	
@@ -159,6 +165,18 @@ public class IndividualService{
 	
 	public List<SummarizedIndividual> getSummarizedIndividuals(){
 		List<SummarizedIndividual> individuals = persistence.getSummarizedIndividuals();
+		for(SummarizedIndividual individual : individuals) {
+			individual.setFullName(individual.getFirstName() + " " + individual.getMiddleName() + " " + individual.getLastName());
+		}
+		return individuals;
+		
+	}
+	
+	
+	
+	
+	public List<SummarizedIndividual> getSummarizedIndividualsForClient(Long clientId){
+		List<SummarizedIndividual> individuals = persistence.getSummarizedIndividualsForClient(clientId);
 		for(SummarizedIndividual individual : individuals) {
 			individual.setFullName(individual.getFirstName() + " " + individual.getMiddleName() + " " + individual.getLastName());
 		}

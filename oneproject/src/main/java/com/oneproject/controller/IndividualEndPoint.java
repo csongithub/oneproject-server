@@ -33,6 +33,14 @@ public class IndividualEndPoint {
 	
 	
 	
+	
+	@GetMapping(value = "getClientIndividuals/{clientId}")
+	public List<Individual> getClientIndividuals(@PathVariable("clientId")Long clientId){
+		return service.getClientIndividuals(clientId);
+	}
+	
+	
+	
 	@PostMapping(value = "addOrUpdateIndividual")
 	public List<Individual> addOrUpdateIndividual(@RequestBody Individual individual){
 		return service.addOrUpdateIndividual(individual);
@@ -47,9 +55,9 @@ public class IndividualEndPoint {
 	
 	
 	
-	@GetMapping(value = "getKYCData")
-	public List<KYCDataWrapper> getKYCData(){
-		return service.getKYCData();
+	@GetMapping(value = "getKYCData/{clientId}")
+	public List<KYCDataWrapper> getKYCData(@PathVariable("clientId") Long clientId){
+		return service.getKYCData(clientId);
 	}
 	
 	
@@ -71,6 +79,13 @@ public class IndividualEndPoint {
 	@GetMapping(value = "getSummarizedIndividuals")
 	public List<SummarizedIndividual> getSummarizedIndividuals(){
 		return service.getSummarizedIndividuals();
+	}
+	
+	
+	
+	@GetMapping(value = "getSummarizedIndividualsForClient/{clientId}")
+	public List<SummarizedIndividual> getSummarizedIndividualsForClient(@PathVariable("clientId")Long clientId){
+		return service.getSummarizedIndividualsForClient(clientId);
 	}
 	
 	

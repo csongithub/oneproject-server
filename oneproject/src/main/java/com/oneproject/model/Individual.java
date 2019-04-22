@@ -22,8 +22,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "INDIVIDUAL")
-public class Individual {
-	
+public class Individual extends BaseEntity{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	@Column(name = "INDIVIDUAL_ID")

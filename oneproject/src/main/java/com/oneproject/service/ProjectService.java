@@ -43,8 +43,20 @@ public class ProjectService{
 	
 	
 	
+	public List<Project> getClientProjects(Long clientId){
+		return projectPersistence.getClientProjects(clientId);
+	}
+	
+	
+	
 	public List<SummarizedProject> getSummarizedProjects(){
 		return projectPersistence.getSummarizedProjects();
+	}
+	
+	
+	
+	public List<SummarizedProject> getSummarizedProjectsForClient(Long clientId){
+		return projectPersistence.getSummarizedProjectsForClient(clientId);
 	}
 	
 	
@@ -57,12 +69,12 @@ public class ProjectService{
 								project.getProjectEndDate(),
 								project.getProjectCost());
 			if(!isNull) {
-				projectPersistence.addOrUpdateProject(project);
+				return projectPersistence.addOrUpdateProject(project);
 			}else {
 				throw new RuntimeException("null value evaluated");
 			}
 		}
-		return projectPersistence.getAllProjects();
+		throw new RuntimeException("null value evaluated");
 	}
 
 	

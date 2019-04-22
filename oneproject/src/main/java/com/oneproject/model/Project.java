@@ -22,7 +22,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="PROJECT")
-public class Project {
+public class Project extends BaseEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue

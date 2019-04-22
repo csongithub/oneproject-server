@@ -16,6 +16,8 @@ public class KYCDataWrapper implements Serializable{
 	 */
 	private static final long serialVersionUID = 3012041468769591886L;
 	
+	private Long clientId;
+	
 	private Long individualId;
 	
 	private String fullName;
@@ -110,5 +112,19 @@ public class KYCDataWrapper implements Serializable{
 	 */
 	public void setConfirmationDate(Date confirmationDate) {
 		this.confirmationDate = confirmationDate;
+	}
+
+	/**
+	 * @return the clientId
+	 */
+	public Long getClientId() {
+		return clientId;
+	}
+
+	/**
+	 * @param clientId the clientId to set
+	 */
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
 	}
 }

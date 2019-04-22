@@ -5,6 +5,8 @@ package com.oneproject.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -15,11 +17,16 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "ENUMERATIONS_PREFERENCES")
-public class AdminEnumerationsPreferences {
-	
+public class AdminEnumerationsPreferences extends BaseEntity{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PREFERENCES_ID")
-	private Long preferencesId = 1L;
+	private Long preferencesId;
 	
 	@Transient
 	private String value;
