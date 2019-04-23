@@ -5,14 +5,11 @@ package com.oneproject.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.oneproject.model.Project;
 import com.oneproject.repository.ProjectRepository;
 import com.oneproject.wrapper.SummarizedProject;
