@@ -23,8 +23,14 @@ public class SupplierService {
 	
 	
 	
-	public List<Supplier> getAppSuppliers(){
+	public List<Supplier> getAllSuppliers(){
 		return persistence.getAllSuppliers();
+	}
+	
+	
+	
+	public List<Supplier> getClientSuppliers(Long clientId){
+		return persistence.getClientSuppliers(clientId);
 	}
 	
 	
@@ -39,6 +45,6 @@ public class SupplierService {
 		if(supplier != null) {
 			persistence.addSupplier(supplier);
 		}
-		return getAppSuppliers();
+		return getClientSuppliers(supplier.getClientId());
 	}
 }

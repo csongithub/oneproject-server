@@ -28,9 +28,16 @@ public class SupplierEndPoint {
 	private SupplierService service;
 	
 	
-	@GetMapping(value = "getAppSuppliers")
-	public List<Supplier> getAppSuppliers(){
-		return service.getAppSuppliers();
+	@GetMapping(value = "getAllSuppliers")
+	public List<Supplier> getAllSuppliers(){
+		return service.getAllSuppliers();
+	}
+	
+	
+	
+	@GetMapping(value = "getClientSuppliers/{clientId}")
+	public List<Supplier> getClientSuppliers(@PathVariable("clientId") Long clientId){
+		return service.getClientSuppliers(clientId);
 	}
 	
 	

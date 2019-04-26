@@ -68,8 +68,10 @@ public class AdminEnumerationsPreferencesService{
 				break;
 			case "MATERIAL_TYPE":
 				oldEnums.setMaterialType(getBytes(preferences.getValue()));
+				break;
 			case "SAL_INTERVAL":
 				oldEnums.setSalaryInterval(getBytes(preferences.getValue()));
+				break;
 			}
 			persistence.addOrUpdateEnumeration(oldEnums);
 			return getClientPreferences(preferences.getClientId());

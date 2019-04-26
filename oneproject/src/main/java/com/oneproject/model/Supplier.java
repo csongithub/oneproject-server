@@ -18,7 +18,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SUPPLIER")
-public class Supplier {
+public class Supplier extends BaseEntity{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
