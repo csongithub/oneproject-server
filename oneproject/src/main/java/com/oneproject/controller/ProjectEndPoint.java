@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oneproject.model.Project;
 import com.oneproject.model.ProjectIndividualMapping;
+import com.oneproject.model.Supplier;
 import com.oneproject.service.ProjectService;
 import com.oneproject.wrapper.ProjectIndividualMapingDataWrapper;
 import com.oneproject.wrapper.SummarizedProject;
@@ -92,5 +93,19 @@ public class ProjectEndPoint {
 	@GetMapping(value = "getIndividualsForProject/{projectId}")
 	public List<ProjectIndividualMapping> getIndividualsForProject(@PathVariable("projectId")Long projectId){
 		return service.getIndividualsForProject(projectId);
+	}
+	
+	
+	
+	@PostMapping(value = "linkSupplier/{projectId}/{supplierId}")
+	public List<Supplier> linkSupplier(@PathVariable("projectId") Long projectId, @PathVariable("supplierId") Long supplierId){
+		return service.linkSupplier(projectId, supplierId);
+	}
+	
+	
+	
+	@GetMapping(value = "getProjectSupplier/{projectId}")
+	public List<Supplier> getProjectSupplier(@PathVariable("projectId") Long projectId) {
+		return service.getProjectSupplier(projectId);
 	}
 }

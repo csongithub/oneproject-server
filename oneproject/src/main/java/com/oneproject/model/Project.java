@@ -11,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -51,9 +53,15 @@ public class Project extends BaseEntity{
 	@Column(name = "PROJECT_COST")
 	private double projectCost;
 	
-	
 	@OneToMany(mappedBy = "projectId")
 	private List<ProjectIndividualMapping> projectIndividuals = new ArrayList<ProjectIndividualMapping>();
+	
+	@OneToMany
+	@JoinTable(name = "PROJECT_SUPPLIERS",
+	          joinColumns = {@JoinColumn(name = "PROJECT_ID")},
+	          inverseJoinColumns = {@JoinColumn(name = "SUPPLIER_ID")}
+	)
+	private List<Supplier> suppliers = new ArrayList<Supplier>();
 	/**
 	 * @return the projectId
 	 */
@@ -150,5 +158,19 @@ public class Project extends BaseEntity{
 	 */
 	public void setProjectIndividuals(List<ProjectIndividualMapping> projectIndividuals) {
 		this.projectIndividuals = projectIndividuals;
+	}
+
+	/**
+	 * @return the suppliers
+	 */
+	public List<Supplier> getSuppliers() {
+		return suppliers;
+	}
+
+	/**
+	 * @param suppliers the suppliers to set
+	 */
+	public void setSuppliers(List<Supplier> suppliers) {
+		this.suppliers = suppliers;
 	}
 }

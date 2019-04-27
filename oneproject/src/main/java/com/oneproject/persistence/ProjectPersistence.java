@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.oneproject.model.Project;
+import com.oneproject.model.Supplier;
 import com.oneproject.repository.ProjectRepository;
 import com.oneproject.wrapper.SummarizedProject;
 
@@ -103,5 +104,4 @@ public class ProjectPersistence extends AbstractPersistence{
 			return null;
 		}
 	}
-
 }

@@ -14,9 +14,11 @@ import com.oneproject.model.Individual;
 import com.oneproject.model.Project;
 import com.oneproject.model.ProjectIndividualMapping;
 import com.oneproject.model.ProjectIndividualMappingKey;
+import com.oneproject.model.Supplier;
 import com.oneproject.persistence.IndividualPersistence;
 import com.oneproject.persistence.ProjectIndividualMappingPersistence;
 import com.oneproject.persistence.ProjectPersistence;
+import com.oneproject.persistence.SupplierPersistence;
 import com.oneproject.wrapper.ProjectIndividualMapingDataWrapper;
 import com.oneproject.wrapper.SummarizedProject;
 
@@ -29,13 +31,14 @@ public class ProjectService{
 	
 	@Autowired
 	private ProjectPersistence projectPersistence;
-	
-	
 	@Autowired
 	private IndividualPersistence individualPersistence;
-	
 	@Autowired
 	private ProjectIndividualMappingPersistence individualMappingPersistence;
+	@Autowired
+	private SupplierPersistence supplierPersistence;
+	
+	
 	
 	public List<Project> getAllProjects(){
 		return projectPersistence.getAllProjects();
@@ -137,5 +140,31 @@ public class ProjectService{
 			return new ArrayList<ProjectIndividualMapping>();
 		}
 	}
+
+
 	
+	public List<Supplier> linkSupplier(Long projectId, Long supplierId) {
+		Project project = projectPersistence.getprojectById(projectId);
+		Supplier supplier = supplierPersistence.getSupplierById(supplierId);
+		if(project != null && supplier != null) {
+			List<Supplier> suppliers = project.getSuppliers();
+			if(suppliers != null && suppliers.size() > 0) {
+				suppliers.add(supplier);
+				projectPersistence.addOrUpdateProject(project);
+			}else {
+				suppliers = new ArrayList<Supplier>();
+				suppliers.add(supplier);
+				project.setSuppliers(suppliers);
+				projectPersistence.addOrUpdateProject(project);
+			}
+		}
+		return project.getSuppliers();
+	}
+	
+	
+	
+	public List<Supplier> getProjectSupplier(Long projectId) {
+		Project project = projectPersistence.getprojectById(projectId);
+		return project.getSuppliers();
+	}
 }
