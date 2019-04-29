@@ -13,10 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.oneproject.constant.NamedQueryConstant;
 
 /**
  * @author chandan
@@ -24,6 +28,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="PROJECT")
+@NamedQuery(name=NamedQueryConstant.GET_PROJECT_SUPPLIERS, query=NamedQueryConstant.GET_PROJECT_SUPPLIERS_QUERY)
 public class Project extends BaseEntity{
 
 	/**
@@ -56,10 +61,10 @@ public class Project extends BaseEntity{
 	@OneToMany(mappedBy = "projectId")
 	private List<ProjectIndividualMapping> projectIndividuals = new ArrayList<ProjectIndividualMapping>();
 	
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name = "PROJECT_SUPPLIERS",
-	          joinColumns = {@JoinColumn(name = "PROJECT_ID")},
-	          inverseJoinColumns = {@JoinColumn(name = "SUPPLIER_ID")}
+	          joinColumns = {@JoinColumn(name = "PROJECT_ID", unique = false)},
+	          inverseJoinColumns = {@JoinColumn(name = "SUPPLIER_ID", unique = false)}
 	)
 	private List<Supplier> suppliers = new ArrayList<Supplier>();
 	/**

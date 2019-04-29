@@ -104,8 +104,8 @@ public class ProjectEndPoint {
 	
 	
 	
-	@GetMapping(value = "getProjectSupplier/{projectId}")
-	public List<Supplier> getProjectSupplier(@PathVariable("projectId") Long projectId) {
-		return service.getProjectSupplier(projectId);
+	@GetMapping(value = "getProjectSuppliers/{projectId}")
+	public List<Supplier> getProjectSuppliers(@PathVariable("projectId") Long projectId){
+		return service.getProjectSuppliers(projectId);
 	}
 }

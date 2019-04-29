@@ -5,11 +5,15 @@ package com.oneproject.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.oneproject.constant.NamedQueryConstant;
 import com.oneproject.model.Project;
 import com.oneproject.model.Supplier;
 import com.oneproject.repository.ProjectRepository;
@@ -28,6 +32,7 @@ public class ProjectPersistence extends AbstractPersistence{
 	private static final String GET_SUMMARIZED_PROJECT = "SELECT P.projectId, P.projectName FROM Project P order by P.projectId";
 	private static final String GET_SUMMARIZED_PROJECTS_FOR_CLIENT = "SELECT P.projectId, P.projectName FROM Project P where P.clientId = ?1 order by P.projectId";
 	private static final String GET_CLIENT_PROJECTS = "select p from Project p where p.clientId = ?1";
+	private static final String GET_PROJECT_SUPPLIERS = "select p.suppliers from Project p where p.projectId = ?1";
 	
 	
 	
@@ -100,6 +105,18 @@ public class ProjectPersistence extends AbstractPersistence{
 			TypedQuery<Project> query = em.createQuery(GET_CLIENT_PROJECTS, Project.class);
 			query.setParameter(1, clientId);
 			return query.getResultList();
+		}catch(NoResultException e) {
+			return null;
+		}
+	}
+	
+	
+	
+	public List<Supplier> getProjectSuppliers(Long projectId){
+		try {
+			Query query = em.createNamedQuery(NamedQueryConstant.GET_PROJECT_SUPPLIERS);
+			query.setParameter("projectId", projectId);
+			return (List<Supplier>) query.getResultList();
 		}catch(NoResultException e) {
 			return null;
 		}

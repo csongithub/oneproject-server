@@ -163,8 +163,7 @@ public class ProjectService{
 	
 	
 	
-	public List<Supplier> getProjectSupplier(Long projectId) {
-		Project project = projectPersistence.getprojectById(projectId);
-		return project.getSuppliers();
+	public List<Supplier> getProjectSuppliers(Long projectId){
+		return projectPersistence.getProjectSuppliers(projectId);
 	}
 }
