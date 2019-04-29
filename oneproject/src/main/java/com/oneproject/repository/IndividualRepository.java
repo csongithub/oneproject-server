@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.oneproject.model.Individual;
 
 /**
- * @author a698219
+ * @author chandan
  *
  */
 public interface IndividualRepository extends JpaRepository<Individual, Long>{
