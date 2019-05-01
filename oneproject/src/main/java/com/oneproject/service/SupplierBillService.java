@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.oneproject.model.SupplierBill;
 import com.oneproject.persistence.SupplierBillPersistence;
+import com.oneproject.wrapper.SupplierBillingSummary;
 
 /**
  * @author chandan
@@ -23,14 +24,16 @@ public class SupplierBillService {
 	
 	
 	
-	public void addBill(SupplierBill bill) {
+	public List<SupplierBill> addBill(SupplierBill bill) {
 		persistence.addBill(bill);
+		List<SupplierBill> bills =  persistence.getSupplierBillsForProject(bill.getProjectId(), bill.getSupplierId());
+		return bills;
 	}
 	
 	
 	
-	public List<SupplierBill> getBillsForSupplierAndProject(Long supplierId, Long projectid){
-		return persistence.getBillsForSupplierAndProject(supplierId, projectid);
+	public List<SupplierBill> getBillsForProjectAndSupplier(Long projectId, Long supplierId){
+		return persistence.getSupplierBillsForProject(projectId, supplierId);
 	}
 	
 	
@@ -43,6 +46,27 @@ public class SupplierBillService {
 	
 	public List<SupplierBill> getProjectBills(Long projectid){
 		return persistence.getProjectBills(projectid);
+	}
+
+
+
+	public SupplierBillingSummary getSupplierBillingSummaryForProject(Long projectId, Long supplierId) {
+		SupplierBillingSummary summary = new SupplierBillingSummary();
+		List<SupplierBill> bills = persistence.getSupplierBillsForProject(projectId, supplierId);
+		if(bills != null && bills.size() > 0) {
+			Double totalBillingAmount = 0.0d;
+			Double totalPaymentAmount = 0.0d;
+			Double totalDueAmount = 0.0d;
+			for(SupplierBill bill : bills) {
+				totalBillingAmount = totalBillingAmount + bill.getBillAmount();
+				totalPaymentAmount = totalPaymentAmount + bill.getPaidAmount();
+			}
+			totalDueAmount = totalBillingAmount - totalPaymentAmount;
+			summary.setTotalBillingAmount(totalBillingAmount);
+			summary.setTotalPaymentAmount(totalPaymentAmount);
+			summary.setTotalDueAmount(totalDueAmount);
+		}
+		return summary;
 	}
 
 }

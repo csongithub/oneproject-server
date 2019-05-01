@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.oneproject.model.SupplierBill;
 import com.oneproject.service.SupplierBillService;
+import com.oneproject.wrapper.SupplierBillingSummary;
 
 /**
  * @author chandan
@@ -27,15 +28,15 @@ public class SupplierBillEndPoint {
 	
 	
 	@PostMapping(value = "addBill")
-	public void addBill(@RequestBody SupplierBill bill) {
-		service.addBill(bill);
+	public List<SupplierBill> addBill(@RequestBody SupplierBill bill) {
+		return service.addBill(bill);
 	}
 	
 	
 	
-	@GetMapping(value = "getBillsForSupplierAndProject/{supplierId}/{projectid}")
-	public List<SupplierBill> getBillsForSupplierAndProject(@PathVariable("supplierId") Long supplierId, @PathVariable("projectid") Long projectid){
-		return service.getBillsForSupplierAndProject(supplierId, projectid);
+	@GetMapping(value = "getBillsForProjectAndSupplier/{projectid}/{supplierId}")
+	public List<SupplierBill> getBillsForProjectAndSupplier(@PathVariable("projectid") Long projectid, @PathVariable("supplierId") Long supplierId){
+		return service.getBillsForProjectAndSupplier(projectid, supplierId);
 	}
 	
 	
@@ -47,9 +48,16 @@ public class SupplierBillEndPoint {
 	
 	
 	
-	@GetMapping(value = "getProjectBills/{projectid}")
-	public List<SupplierBill> getProjectBills(Long projectid){
-		return service.getProjectBills(projectid);
+	@GetMapping(value = "getProjectBills/{projectId}")
+	public List<SupplierBill> getProjectBills(Long projectId){
+		return service.getProjectBills(projectId);
+	}
+	
+	
+	
+	@GetMapping(value = "getSupplierBillingSummaryForProject/{projectId}/{supplierId}")
+	public SupplierBillingSummary getSupplierBillingSummaryForProject(@PathVariable("projectId") Long projectId, @PathVariable("supplierId") Long supplierId) {
+		return service.getSupplierBillingSummaryForProject(projectId, supplierId);
 	}
 
 }
