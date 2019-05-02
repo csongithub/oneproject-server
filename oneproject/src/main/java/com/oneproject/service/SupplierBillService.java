@@ -24,10 +24,8 @@ public class SupplierBillService {
 	
 	
 	
-	public List<SupplierBill> addBill(SupplierBill bill) {
+	public void addBill(SupplierBill bill) {
 		persistence.addBill(bill);
-		List<SupplierBill> bills =  persistence.getSupplierBillsForProject(bill.getProjectId(), bill.getSupplierId());
-		return bills;
 	}
 	
 	

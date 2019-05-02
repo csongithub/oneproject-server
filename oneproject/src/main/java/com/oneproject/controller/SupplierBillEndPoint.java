@@ -28,10 +28,10 @@ public class SupplierBillEndPoint {
 	
 	
 	@PostMapping(value = "addBill")
-	public List<SupplierBill> addBill(@RequestBody SupplierBill bill) {
-		return service.addBill(bill);
+	public void addBill(@RequestBody SupplierBill bill) {
+		service.addBill(bill);
 	}
-	
+	 
 	
 	
 	@GetMapping(value = "getBillsForProjectAndSupplier/{projectid}/{supplierId}")
