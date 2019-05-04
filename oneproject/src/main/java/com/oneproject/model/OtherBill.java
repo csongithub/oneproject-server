@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,13 +40,15 @@ public class OtherBill {
 	@Column(name = "BILLING_DATE")
 	private Date billingDate;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name = "OTHER_BILL_ITEMS",
 	          joinColumns = {@JoinColumn(name = "BILL_ID", unique = false)},
 	          inverseJoinColumns = {@JoinColumn(name = "ITEM_ID", unique = false)}
 	)
-	private List<Item> itmes = new ArrayList<Item>();
-
+	private List<Item> items = new ArrayList<Item>();
+	
+	@Column(name = "BILL_AMOUNT")
+	private Double billAmount;
 	/**
 	 * @return the billId
 	 */
@@ -91,14 +94,42 @@ public class OtherBill {
 	/**
 	 * @return the itmes
 	 */
-	public List<Item> getItmes() {
-		return itmes;
+	public List<Item> getItems() {
+		return items;
 	}
 
 	/**
 	 * @param itmes the itmes to set
 	 */
-	public void setItmes(List<Item> itmes) {
-		this.itmes = itmes;
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	/**
+	 * @return the clientId
+	 */
+	public Long getClientId() {
+		return clientId;
+	}
+
+	/**
+	 * @param clientId the clientId to set
+	 */
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
+	}
+
+	/**
+	 * @return the billAmount
+	 */
+	public Double getBillAmount() {
+		return billAmount;
+	}
+
+	/**
+	 * @param billAmount the billAmount to set
+	 */
+	public void setBillAmount(Double billAmount) {
+		this.billAmount = billAmount;
 	}
 }

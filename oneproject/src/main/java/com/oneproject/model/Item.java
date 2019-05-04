@@ -30,6 +30,9 @@ public class Item {
 	
 	@Column(name = "PRICE")
 	private Double price;
+	
+	@Column(name = "REMARK")
+	private String remark;
 	/**
 	 * @return the itemId
 	 */
@@ -77,5 +80,17 @@ public class Item {
 	 */
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	/**
+	 * @return the remark
+	 */
+	public String getRemark() {
+		return remark;
+	}
+	/**
+	 * @param remark the remark to set
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }
