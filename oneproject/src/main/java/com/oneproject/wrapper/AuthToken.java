@@ -19,6 +19,8 @@ public class AuthToken implements Serializable {
 	private Long clientId;
 	
 	private Boolean authenticated;
+	
+	private String clientName;
 
 	/**
 	 * @return the clientId
@@ -46,5 +48,19 @@ public class AuthToken implements Serializable {
 	 */
 	public void setAuthenticated(Boolean authenticated) {
 		this.authenticated = authenticated;
+	}
+
+	/**
+	 * @return the clientName
+	 */
+	public String getClientName() {
+		return clientName;
+	}
+
+	/**
+	 * @param clientName the clientName to set
+	 */
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 }

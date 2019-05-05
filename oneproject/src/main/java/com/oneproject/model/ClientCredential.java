@@ -23,6 +23,9 @@ public class ClientCredential {
 	@Column(name = "CLIENT_ID")
 	private Long clientId;
 	
+	@Column(name = "CLIENT_NAME")
+	private String clientName;
+	
 	@Column(name = "USER_ID")
 	private String username;
 	
@@ -69,5 +72,19 @@ public class ClientCredential {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the clientName
+	 */
+	public String getClientName() {
+		return clientName;
+	}
+
+	/**
+	 * @param clientName the clientName to set
+	 */
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 }

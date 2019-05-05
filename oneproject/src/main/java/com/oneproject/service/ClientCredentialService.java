@@ -30,6 +30,7 @@ public class ClientCredentialService {
 			token.setAuthenticated(false);
 		}else {
 			token.setClientId(cred.getClientId());
+			token.setClientName(cred.getClientName());
 			token.setAuthenticated(true);
 		}
 		return token;
