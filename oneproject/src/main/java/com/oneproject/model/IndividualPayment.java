@@ -63,9 +63,6 @@ public class IndividualPayment {
 	
 	@Column(name = "PAYMENT_FOR")
 	private String paymentFor;
-	
-	@Column(name = "OTHER_EXPENSE")
-	private Double otherExpense;
 
 	/**
 	 * @return the id
@@ -247,19 +244,5 @@ public class IndividualPayment {
 	 */
 	public void setPaymentFor(String paymentFor) {
 		this.paymentFor = paymentFor;
-	}
-
-	/**
-	 * @return the otherExpense
-	 */
-	public Double getOtherExpense() {
-		return otherExpense;
-	}
-
-	/**
-	 * @param otherExpense the otherExpense to set
-	 */
-	public void setOtherExpense(Double otherExpense) {
-		this.otherExpense = otherExpense;
 	}
 }

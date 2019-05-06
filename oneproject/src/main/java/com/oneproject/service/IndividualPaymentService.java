@@ -47,14 +47,13 @@ public class IndividualPaymentService {
 			Double totalPaymentAmount = 0.0d;
 			Double totalPaidAmount = 0.0d;
 			Double diff = 0.0d;
-			Double totalOtherExpensePaid = 0.0d;
 			for(IndividualPayment payment: payments) {
 				totalPaymentAmount = totalPaymentAmount + payment.getSalaryAmount();
 				totalPaidAmount = totalPaidAmount + payment.getPaidAmount();
-				totalOtherExpensePaid = totalOtherExpensePaid + payment.getOtherExpense();
 			}
 			diff = totalPaymentAmount - totalPaidAmount;
 			
+			summary.setTotalPaymentAmount(totalPaymentAmount);
 			summary.setTotalPaidAmount(totalPaidAmount);
 			if(diff >= 0) {
 				summary.setTotalDueAmount(diff);
@@ -63,8 +62,6 @@ public class IndividualPaymentService {
 				summary.setTotalDueAmount(0.0d);
 				summary.setTotalAdvanceAmount(-diff);
 			}
-			summary.setTotalPaymentAmount(totalPaymentAmount + totalOtherExpensePaid);
-			summary.setTotalOtherExpensePaid(totalOtherExpensePaid);
 		}
 		return summary;
 	}
