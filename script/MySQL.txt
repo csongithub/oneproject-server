@@ -1,0 +1,52 @@
+Login to MY SQL
+	mysql -u <user_name> -p
+
+GIve Privilage
+	ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Welcome@123';
+	FLUSH PRIVILEGES;
+
+SELECT user, host FROM mysql.user;
+
+==============Prod User Creation Script==================
+CREATE USER 'produser'@'localhost' IDENTIFIED BY 'Prod@123';
+GRANT CREATE ON *.* TO 'produser'@'localhost';
+GRANT DROP ON *.* TO 'produser'@'localhost';
+GRANT SELECT ON *.* TO 'produser'@'localhost';
+GRANT DELETE ON *.* TO 'produser'@'localhost';
+GRANT UPDATE ON *.* TO 'produser'@'localhost';
+GRANT ALTER ON *.* TO 'produser'@'localhost';
+ALTER USER 'produser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Prod@123';
+GRANT ALL PRIVILEGES ON *.* TO 'produser'@'localhost';
+
+
+=============Test User Creation Script===============
+CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'Test@123';
+GRANT CREATE ON *.* TO 'testuser'@'localhost';
+GRANT DROP ON *.* TO 'testuser'@'localhost';
+GRANT SELECT ON *.* TO 'testuser'@'localhost';
+GRANT DELETE ON *.* TO 'testuser'@'localhost';
+GRANT UPDATE ON *.* TO 'testuser'@'localhost';
+GRANT ALTER ON *.* TO 'testuser'@'localhost';
+ALTER USER 'testuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Test@123';
+GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'localhost';
+
+
+=========create client=====================
+insert into client_credentials (client_id, password, user_id, client_name) values(1, 'welcome1', 'testuser', 'Oneproject Testing');
+insert into client_credentials (client_id, password, user_id, client_name) values(1, 'welcome1', 'jmsuser', 'JMS Construction Pvt. Ltd.');
+
+=======User/Database Details===============
+Production
+	database: proddb
+	user: produser
+	password: Prod@123
+	
+	ServerPost: 8001
+	Ui Port: 8002
+
+Testing
+	database: testdb
+	user: testuser
+	password: Test@123
+	ServerPost: 7001
+	Ui Port: 7002
