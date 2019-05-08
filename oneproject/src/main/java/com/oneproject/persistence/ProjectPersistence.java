@@ -32,7 +32,6 @@ public class ProjectPersistence extends AbstractPersistence{
 	private static final String GET_SUMMARIZED_PROJECT = "SELECT P.projectId, P.projectName FROM Project P order by P.projectId";
 	private static final String GET_SUMMARIZED_PROJECTS_FOR_CLIENT = "SELECT P.projectId, P.projectName FROM Project P where P.clientId = ?1 order by P.projectId";
 	private static final String GET_CLIENT_PROJECTS = "select p from Project p where p.clientId = ?1";
-	private static final String GET_PROJECT_SUPPLIERS = "select p.suppliers from Project p where p.projectId = ?1";
 	
 	
 	
@@ -77,7 +76,7 @@ public class ProjectPersistence extends AbstractPersistence{
 	
 	
 	
-	public Project getprojectById(Long projectId) {
+	public Project getProjectById(Long projectId) {
 		return repository.findOne(projectId);
 	}
 	

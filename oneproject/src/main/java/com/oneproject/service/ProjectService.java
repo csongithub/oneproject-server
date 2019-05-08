@@ -79,6 +79,31 @@ public class ProjectService{
 		}
 		throw new RuntimeException("null value evaluated");
 	}
+	
+	
+	
+	public List<Project> updateProject(SummarizedProject summarizedProject){
+		Long projectId = summarizedProject.getProjectId();
+		if(projectId != null) {
+			Project project = projectPersistence.getProjectById(projectId);
+			if(project != null) {
+				project.setProjectName(summarizedProject.getProjectName());
+				project.setProjectType(summarizedProject.getProjectType());
+				project.setProjectStartDate(summarizedProject.getProjectStartDate());
+				project.setProjectEndDate(summarizedProject.getProjectEndDate());
+				project.setProjectCost(summarizedProject.getProjectCost());
+				project.setBgNumber(summarizedProject.getBgNumber());
+				project.setSecurity(summarizedProject.getSecurity());
+				project.setSecurityDepositDate(summarizedProject.getSecurityDepositDate());
+				project.setSecurityExpiryDate(summarizedProject.getSecurityExpiryDate());
+				return projectPersistence.addOrUpdateProject(project);
+			}
+		} else {
+			throw new RuntimeException("No Project Found");
+		}
+		return null;
+		
+	}
 
 	
 	
@@ -89,7 +114,7 @@ public class ProjectService{
 	
 	
 	public List<ProjectIndividualMapping> linkIndividual(ProjectIndividualMapingDataWrapper wrapper){
-		Project project = projectPersistence.getprojectById(wrapper.getProjectId());
+		Project project = projectPersistence.getProjectById(wrapper.getProjectId());
 		Individual individual = individualPersistence.getIndividualById(wrapper.getIndividualId());
 		if(project != null && individual != null) {
 			ProjectIndividualMapping mapping = new ProjectIndividualMapping();
@@ -112,7 +137,7 @@ public class ProjectService{
 		if(mapping != null) {
 			individualMappingPersistence.deleteMappingByKey(key);
 		}
-		return projectPersistence.getprojectById(projectId);
+		return projectPersistence.getProjectById(projectId);
 	}
 	
 	
@@ -127,7 +152,7 @@ public class ProjectService{
 
 
 	public List<ProjectIndividualMapping> getIndividualsForProject(Long projectId) {
-		Project project = projectPersistence.getprojectById(projectId);
+		Project project = projectPersistence.getProjectById(projectId);
 		if(project != null && project.getProjectIndividuals() != null) {
 			for(ProjectIndividualMapping mapping: project.getProjectIndividuals()) {
 				Individual individual = individualPersistence.getIndividualById(mapping.getIndividualId());
@@ -144,7 +169,7 @@ public class ProjectService{
 
 	
 	public List<Supplier> linkSupplier(Long projectId, Long supplierId) {
-		Project project = projectPersistence.getprojectById(projectId);
+		Project project = projectPersistence.getProjectById(projectId);
 		Supplier supplier = supplierPersistence.getSupplierById(supplierId);
 		if(project != null && supplier != null) {
 			List<Supplier> suppliers = project.getSuppliers();

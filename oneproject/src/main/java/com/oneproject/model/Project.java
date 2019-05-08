@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -58,7 +59,21 @@ public class Project extends BaseEntity{
 	@Column(name = "PROJECT_COST")
 	private double projectCost;
 	
-	@OneToMany(mappedBy = "projectId")
+	@Column(name = "BG_NUMBER")
+	private String bgNumber;
+	
+	@Column(name = "SECURITY_AMOUNT")
+	private Double security;
+	
+	@Column(name = "SEC_SUB_DATE")
+	@Temporal(TemporalType.DATE)
+	private Date securityDepositDate;
+	
+	@Column(name = "SEC_EXP_DATE")
+	@Temporal(TemporalType.DATE)
+	private Date securityExpiryDate;
+	
+	@OneToMany(mappedBy = "projectId", cascade = CascadeType.ALL)
 	private List<ProjectIndividualMapping> projectIndividuals = new ArrayList<ProjectIndividualMapping>();
 	
 	@ManyToMany
@@ -67,6 +82,14 @@ public class Project extends BaseEntity{
 	          inverseJoinColumns = {@JoinColumn(name = "SUPPLIER_ID", unique = false)}
 	)
 	private List<Supplier> suppliers = new ArrayList<Supplier>();
+	
+	
+	@ManyToMany
+	@JoinTable(name = "PROJECT_MACHINES",
+	          joinColumns = {@JoinColumn(name = "PROJECT_ID", unique = false)},
+	          inverseJoinColumns = {@JoinColumn(name = "MACHINE_ID", unique = false)}
+	)
+	private List<Machine> machines = new ArrayList<Machine>();
 	/**
 	 * @return the projectId
 	 */
@@ -177,5 +200,77 @@ public class Project extends BaseEntity{
 	 */
 	public void setSuppliers(List<Supplier> suppliers) {
 		this.suppliers = suppliers;
+	}
+
+	/**
+	 * @return the bgNumber
+	 */
+	public String getBgNumber() {
+		return bgNumber;
+	}
+
+	/**
+	 * @param bgNumber the bgNumber to set
+	 */
+	public void setBgNumber(String bgNumber) {
+		this.bgNumber = bgNumber;
+	}
+
+	/**
+	 * @return the security
+	 */
+	public Double getSecurity() {
+		return security;
+	}
+
+	/**
+	 * @param security the security to set
+	 */
+	public void setSecurity(Double security) {
+		this.security = security;
+	}
+
+	
+
+	/**
+	 * @return the securityDepositDate
+	 */
+	public Date getSecurityDepositDate() {
+		return securityDepositDate;
+	}
+
+	/**
+	 * @param securityDepositDate the securityDepositDate to set
+	 */
+	public void setSecurityDepositDate(Date securityDepositDate) {
+		this.securityDepositDate = securityDepositDate;
+	}
+
+	/**
+	 * @return the securityExpiryDate
+	 */
+	public Date getSecurityExpiryDate() {
+		return securityExpiryDate;
+	}
+
+	/**
+	 * @param securityExpiryDate the securityExpiryDate to set
+	 */
+	public void setSecurityExpiryDate(Date securityExpiryDate) {
+		this.securityExpiryDate = securityExpiryDate;
+	}
+
+	/**
+	 * @return the machines
+	 */
+	public List<Machine> getMachines() {
+		return machines;
+	}
+
+	/**
+	 * @param machines the machines to set
+	 */
+	public void setMachines(List<Machine> machines) {
+		this.machines = machines;
 	}
 }
