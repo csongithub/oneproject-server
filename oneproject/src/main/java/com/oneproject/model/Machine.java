@@ -5,8 +5,6 @@ package com.oneproject.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -19,10 +17,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MACHINE")
 public class Machine {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "MACHINE_ID")
-	private Long machineId;
+	@Column(name = "MACHINE_NUMBER")
+	private String machineNumber;
 	
 	@Column(name = "CLIENT_ID")
 	private Long clientId;
@@ -30,30 +28,12 @@ public class Machine {
 	@Column(name = "MACHINE_NAME")
 	private String machineName;
 	
-	@Column(name = "MACHINE_NUMBER")
-	private String machineNumber;
-	
-	@Column(name = "RATE")
-	private String rate;
-	
-	@Column(name = "RATE_INTR")
-	private String rateInterval;
-	
 	@OneToOne
 	@JoinColumn(name="INDIVIDUAL_ID")
 	private Individual owner;
-	/**
-	 * @return the machineId
-	 */
-	public Long getMachineId() {
-		return machineId;
-	}
-	/**
-	 * @param machineId the machineId to set
-	 */
-	public void setMachineId(Long machineId) {
-		this.machineId = machineId;
-	}
+	
+	@Column(name = "MACHINE_TYPE")
+	private String machineType;
 	/**
 	 * @return the machineName
 	 */
@@ -77,30 +57,6 @@ public class Machine {
 	 */
 	public void setMachineNumber(String machineNumber) {
 		this.machineNumber = machineNumber;
-	}
-	/**
-	 * @return the rate
-	 */
-	public String getRate() {
-		return rate;
-	}
-	/**
-	 * @param rate the rate to set
-	 */
-	public void setRate(String rate) {
-		this.rate = rate;
-	}
-	/**
-	 * @return the rateInterval
-	 */
-	public String getRateInterval() {
-		return rateInterval;
-	}
-	/**
-	 * @param rateInterval the rateInterval to set
-	 */
-	public void setRateInterval(String rateInterval) {
-		this.rateInterval = rateInterval;
 	}
 	/**
 	 * @return the owner

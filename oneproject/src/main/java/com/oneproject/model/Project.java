@@ -31,7 +31,6 @@ import com.oneproject.constant.NamedQueryConstant;
 @Table(name="PROJECT")
 @NamedQuery(name=NamedQueryConstant.GET_PROJECT_SUPPLIERS, query=NamedQueryConstant.GET_PROJECT_SUPPLIERS_QUERY)
 public class Project extends BaseEntity{
-
 	/**
 	 * 
 	 */
@@ -83,13 +82,13 @@ public class Project extends BaseEntity{
 	)
 	private List<Supplier> suppliers = new ArrayList<Supplier>();
 	
-	
-	@ManyToMany
+	@OneToMany
 	@JoinTable(name = "PROJECT_MACHINES",
-	          joinColumns = {@JoinColumn(name = "PROJECT_ID", unique = false)},
-	          inverseJoinColumns = {@JoinColumn(name = "MACHINE_ID", unique = false)}
+    	joinColumns = {@JoinColumn(name = "PROJECT_ID", unique = false)},
+    	inverseJoinColumns = {@JoinColumn(name = "LINKAGE_ID", unique = false)}
 	)
-	private List<Machine> machines = new ArrayList<Machine>();
+	private List<ProjectMachineLinkage> projectMachineLinkage = new ArrayList<ProjectMachineLinkage>();
+	
 	/**
 	 * @return the projectId
 	 */
@@ -258,19 +257,5 @@ public class Project extends BaseEntity{
 	 */
 	public void setSecurityExpiryDate(Date securityExpiryDate) {
 		this.securityExpiryDate = securityExpiryDate;
-	}
-
-	/**
-	 * @return the machines
-	 */
-	public List<Machine> getMachines() {
-		return machines;
-	}
-
-	/**
-	 * @param machines the machines to set
-	 */
-	public void setMachines(List<Machine> machines) {
-		this.machines = machines;
 	}
 }

@@ -6,6 +6,10 @@ package com.oneproject.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,19 +28,22 @@ public class MachineEndPoint {
 	private MachineService service;
 	
 	
-	public void addMachine(Machine machine) {
+	@PostMapping(value = "addMachine")
+	public void addMachine(@RequestBody Machine machine) {
 		service.addMachine(machine);
 	}
 	
 	
 	
-	public List<Machine> getClientMachines(Long clientId){
+	@GetMapping(value = "getClientMachines/{clientId}")
+	public List<Machine> getClientMachines(@PathVariable("clientId")Long clientId){
 		return service.getClientMachines(clientId);
 	}
 	
 	
 	
-	public Machine getMachineById(Long machineId) {
+	@GetMapping(value = "getMachineById/{machineId}")
+	public Machine getMachineById(@PathVariable("machineId") Long machineId) {
 		return service.getMachineById(machineId);
 	}
 
