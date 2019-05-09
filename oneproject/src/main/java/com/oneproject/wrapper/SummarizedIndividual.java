@@ -43,6 +43,17 @@ public class SummarizedIndividual implements Serializable {
 		this.position = position;
 		this.joiningDate = joiningDate;
 	}
+	
+	public SummarizedIndividual(Long individualId, 
+								String firstName, 
+								String middleName,
+								String lastName) {
+		super();
+		this.individualId = individualId;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+	}
 
 	/**
 	 * @return the individualId

@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.oneproject.model.Machine;
 import com.oneproject.model.ProjectMachineLinkage;
+import com.oneproject.persistence.IndividualPersistence;
 import com.oneproject.persistence.MachinePersistence;
 import com.oneproject.persistence.ProjectMachineLinkagePersistence;
 import com.oneproject.wrapper.MachinePricingWrapper;
+import com.oneproject.wrapper.SummarizedIndividual;
 
 /**
  * @author chandan
@@ -27,6 +29,9 @@ public class MachineService {
 	@Autowired
 	private ProjectMachineLinkagePersistence linkagePersistence;
 	
+	@Autowired
+	private IndividualPersistence individualPersistence;
+	
 	
 	
 	public void addMachine(Machine machine) {
@@ -36,7 +41,15 @@ public class MachineService {
 	
 	
 	public List<Machine> getClientMachines(Long clientId){
-		return persistence.getClientMachines(clientId);
+		List<Machine> machines = persistence.getClientMachines(clientId);
+		for(Machine machine: machines) {
+			SummarizedIndividual individual = individualPersistence.getSummarizedIndividualById(machine.getOwnerId());
+			if(individual != null) {
+				String ownerName = individual.getFirstName() + " " +individual.getMiddleName() +" " +individual.getLastName();
+				machine.setOwnerName(ownerName);
+			}
+		}
+		return machines;
 	}
 	
 	

@@ -28,36 +28,54 @@ public class IndividualPersistence extends AbstractPersistence {
 	
 	private static final String GET_CLIENT_INDIVIDUALS = "select i from Individual i where i.clientId = ?1";
 	
+	private static final String GET_SUMMARIZED_INDIVIDUAL_BY_ID = "select new com.oneproject.wrapper.SummarizedIndividual(ind.individualId, ind.firstName, ind.middleName, ind.lastName) FROM Individual ind where ind.individualId = ?1";
+	
 	@Autowired
 	private IndividualRepository repository;
 	
 	
 	
 	public List<Individual> getAllIndividuals() {
-		return repository.findAll();
+		try {
+			return repository.findAll();
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 	
 	
 	
 	public Individual getIndividualById(Long individualId) {
-		return repository.findOne(individualId);
+		try {
+			return repository.findOne(individualId);
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 	
 	
 	
 	public List<Individual> addOrUpdateIndividual(Individual individual){
-		repository.save(individual);
-		return this.getClientIndividuals(individual.getClientId());
+		try {
+			repository.save(individual);
+			return this.getClientIndividuals(individual.getClientId());
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 	
 	
 	
 	public List<Individual> deleteIndividualById(Long individualId) {
-		Individual obj = repository.findOne(individualId);
-		if(obj != null) {
-			repository.delete(individualId);
+		try {
+			Individual obj = repository.findOne(individualId);
+			if(obj != null) {
+				repository.delete(individualId);
+			}
+			return repository.findAll(); 
+		}catch(NoResultException e) {
+			return null;
 		}
-		return repository.findAll(); 
 	}
 	
 	
@@ -70,14 +88,29 @@ public class IndividualPersistence extends AbstractPersistence {
 		}catch(NoResultException e) {
 			return null;
 		}
-		
 	}
 	
 	
 	
 	public List<SummarizedIndividual> getSummarizedIndividuals() {
-		List<SummarizedIndividual> bookPublisherValues = em.createQuery(GET_SUMMARIZED_INDIVIDUALS,SummarizedIndividual.class).getResultList();
-		return bookPublisherValues;
+		try {
+			List<SummarizedIndividual> bookPublisherValues = em.createQuery(GET_SUMMARIZED_INDIVIDUALS,SummarizedIndividual.class).getResultList();
+			return bookPublisherValues;
+		}catch(NoResultException e) {
+			return null;
+		}
+	}
+	
+	
+	
+	public SummarizedIndividual getSummarizedIndividualById(Long individualId) {
+		try {
+			TypedQuery<SummarizedIndividual> query = em.createQuery(GET_SUMMARIZED_INDIVIDUAL_BY_ID, SummarizedIndividual.class);
+			query.setParameter(1, individualId);
+			return query.getSingleResult();
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 	
 	

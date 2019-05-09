@@ -5,10 +5,11 @@ package com.oneproject.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author chandan
@@ -19,6 +20,10 @@ import javax.persistence.Table;
 public class Machine {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "MACHINE_ID")
+	private Long machineId;
+	
 	@Column(name = "MACHINE_NUMBER")
 	private String machineNumber;
 	
@@ -28,12 +33,14 @@ public class Machine {
 	@Column(name = "MACHINE_NAME")
 	private String machineName;
 	
-	@OneToOne
-	@JoinColumn(name="INDIVIDUAL_ID")
-	private Individual owner;
-	
 	@Column(name = "MACHINE_TYPE")
 	private String machineType;
+	
+	@Column(name = "OWNER_ID")
+	private Long ownerId;
+	
+	@Transient
+	private String ownerName;
 	/**
 	 * @return the machineName
 	 */
@@ -58,17 +65,54 @@ public class Machine {
 	public void setMachineNumber(String machineNumber) {
 		this.machineNumber = machineNumber;
 	}
+	
 	/**
-	 * @return the owner
+	 * @return the machineId
 	 */
-	public Individual getOwner() {
-		return owner;
+	public Long getMachineId() {
+		return machineId;
 	}
 	/**
-	 * @param owner the owner to set
+	 * @param machineId the machineId to set
 	 */
-	public void setOwner(Individual owner) {
-		this.owner = owner;
+	public void setMachineId(Long machineId) {
+		this.machineId = machineId;
+	}
+	/**
+	 * @return the machineType
+	 */
+	public String getMachineType() {
+		return machineType;
+	}
+	/**
+	 * @param machineType the machineType to set
+	 */
+	public void setMachineType(String machineType) {
+		this.machineType = machineType;
+	}
+	/**
+	 * @return the ownerId
+	 */
+	public Long getOwnerId() {
+		return ownerId;
+	}
+	/**
+	 * @param ownerId the ownerId to set
+	 */
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
+	}
+	/**
+	 * @return the ownerName
+	 */
+	public String getOwnerName() {
+		return ownerName;
+	}
+	/**
+	 * @param ownerName the ownerName to set
+	 */
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 	/**
 	 * @return the clientId

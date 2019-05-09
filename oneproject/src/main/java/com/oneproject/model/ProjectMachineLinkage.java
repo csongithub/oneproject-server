@@ -30,7 +30,7 @@ public class ProjectMachineLinkage {
 	private Long linkageId;
 	
 	@OneToOne
-	@JoinColumn(name = "MACHINE_NUMBER")
+	@JoinColumn(name = "MACHINE_ID")
 	private Machine machine;
 	
 	@Column(name = "JOINED_ON")
