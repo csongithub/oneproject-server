@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oneproject.model.Machine;
 import com.oneproject.service.MachineService;
+import com.oneproject.wrapper.MachinePricingWrapper;
 
 /**
  * @author a698219
@@ -45,6 +46,12 @@ public class MachineEndPoint {
 	@GetMapping(value = "getMachineById/{machineId}")
 	public Machine getMachineById(@PathVariable("machineId") Long machineId) {
 		return service.getMachineById(machineId);
+	}
+	
+	
+	@GetMapping(value = "generateBillByPeriod")
+	public MachinePricingWrapper generateBillByPeriod(@RequestBody MachinePricingWrapper wrapper) {
+		return service.generateBillByPeriod(wrapper);
 	}
 
 }

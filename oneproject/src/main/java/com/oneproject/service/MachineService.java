@@ -46,6 +46,7 @@ public class MachineService {
 	}
 	
 	
+	
 	public MachinePricingWrapper generateBillByPeriod(MachinePricingWrapper wrapper) {
 		try {
 			ProjectMachineLinkage linkage = linkagePersistence.getMachineLinkageById(wrapper.getLinkageID());
