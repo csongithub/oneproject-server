@@ -11,15 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oneproject.model.Individual;
+import com.oneproject.model.Machine;
 import com.oneproject.model.Project;
 import com.oneproject.model.ProjectIndividualMapping;
 import com.oneproject.model.ProjectIndividualMappingKey;
+import com.oneproject.model.ProjectMachineLinkage;
 import com.oneproject.model.Supplier;
 import com.oneproject.persistence.IndividualPersistence;
 import com.oneproject.persistence.ProjectIndividualMappingPersistence;
 import com.oneproject.persistence.ProjectPersistence;
 import com.oneproject.persistence.SupplierPersistence;
 import com.oneproject.wrapper.ProjectIndividualMapingDataWrapper;
+import com.oneproject.wrapper.ProjectMachineWrapper;
 import com.oneproject.wrapper.SummarizedProject;
 
 /**
@@ -190,5 +193,55 @@ public class ProjectService{
 	
 	public List<Supplier> getProjectSuppliers(Long projectId){
 		return projectPersistence.getProjectSuppliers(projectId);
+	}
+	
+	
+	
+	
+	public List<ProjectMachineWrapper> addMachineToProject(Long projectId, ProjectMachineLinkage machineLinkage) {
+		Project project = projectPersistence.getProjectById(projectId);
+		List<ProjectMachineLinkage> linkages = null;
+		if(project != null) {
+			linkages = project.getProjectMachineLinkage();
+			if(linkages != null && linkages.size() > 0) {
+				linkages.add(machineLinkage);
+			}else {
+				linkages = new ArrayList<ProjectMachineLinkage>();
+				linkages.add(machineLinkage);
+				project.setProjectMachineLinkage(linkages);
+			}
+			projectPersistence.addOrUpdateProject(project);
+			return this.getProjectMachines(projectId);
+		}else {
+			throw new RuntimeException("No Project Found");
+		}
+	}
+	
+
+
+	public List<ProjectMachineWrapper> getProjectMachines(Long projectId) {
+		Project project = projectPersistence.getProjectById(projectId);
+		List<ProjectMachineWrapper> wrappers = new ArrayList<ProjectMachineWrapper>();
+		if(project != null) {
+			List<ProjectMachineLinkage> machineLinkages = project.getProjectMachineLinkage();
+			for(ProjectMachineLinkage projectMachineLinkage : machineLinkages) {
+				ProjectMachineWrapper wrapper = new ProjectMachineWrapper();
+				Machine machine = projectMachineLinkage.getMachine();
+				wrapper.setMachineId(machine.getMachineId());
+				wrapper.setMachineName(machine.getMachineName());
+				wrapper.setMachineNumber(machine.getMachineNumber());
+				wrapper.setMachineType(machine.getMachineType());
+				
+				Individual individual = individualPersistence.getIndividualById( machine.getOwnerId());
+				String owner = individual.getFirstName() + " " + individual.getMiddleName() + " " + individual.getLastName();
+				wrapper.setOwner(owner);
+				String charge = "\u20B9" +" " + projectMachineLinkage.getPrice() + " / " + projectMachineLinkage.getPricingUnit();
+				wrapper.setCharge(charge);
+				Date joined = projectMachineLinkage.getJoinedOn();
+				wrapper.setJoined(joined);
+				wrappers.add(wrapper);
+			}
+		}
+		return wrappers;
 	}
 }

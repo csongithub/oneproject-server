@@ -49,6 +49,10 @@ public class SupplierBill {
 	@Temporal(TemporalType.DATE)
 	private Date paymentDate;
 	
+	@Column(name = "BILLING_DATE")
+	@Temporal(TemporalType.DATE)
+	private Date billingDate;
+	
 	@Column(name = "MATERIALS")
 	private String materials;
 	
@@ -60,6 +64,9 @@ public class SupplierBill {
 	
 	@Column(name = "QUANTITY")
 	private String quantity;
+	
+	@Column(name = "RATE")
+	private Double rate;
 	/**
 	 * @return the billId
 	 */
@@ -226,5 +233,33 @@ public class SupplierBill {
 	 */
 	public void setQuantity(String quantity) {
 		this.quantity = quantity;
+	}
+
+	/**
+	 * @return the billingDate
+	 */
+	public Date getBillingDate() {
+		return billingDate;
+	}
+
+	/**
+	 * @param billingDate the billingDate to set
+	 */
+	public void setBillingDate(Date billingDate) {
+		this.billingDate = billingDate;
+	}
+
+	/**
+	 * @return the rate
+	 */
+	public Double getRate() {
+		return rate;
+	}
+
+	/**
+	 * @param rate the rate to set
+	 */
+	public void setRate(Double rate) {
+		this.rate = rate;
 	}
 }

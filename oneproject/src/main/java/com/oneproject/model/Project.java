@@ -82,7 +82,7 @@ public class Project extends BaseEntity{
 	)
 	private List<Supplier> suppliers = new ArrayList<Supplier>();
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PROJECT_MACHINES",
     	joinColumns = {@JoinColumn(name = "PROJECT_ID", unique = false)},
     	inverseJoinColumns = {@JoinColumn(name = "LINKAGE_ID", unique = false)}
@@ -257,5 +257,19 @@ public class Project extends BaseEntity{
 	 */
 	public void setSecurityExpiryDate(Date securityExpiryDate) {
 		this.securityExpiryDate = securityExpiryDate;
+	}
+
+	/**
+	 * @return the projectMachineLinkage
+	 */
+	public List<ProjectMachineLinkage> getProjectMachineLinkage() {
+		return projectMachineLinkage;
+	}
+
+	/**
+	 * @param projectMachineLinkage the projectMachineLinkage to set
+	 */
+	public void setProjectMachineLinkage(List<ProjectMachineLinkage> projectMachineLinkage) {
+		this.projectMachineLinkage = projectMachineLinkage;
 	}
 }

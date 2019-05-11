@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table(name = "PROJECT_MACIHNE_LINKAGE")
+@Table(name = "PROJECT_MACHINE_LINKAGE")
 public class ProjectMachineLinkage {
 	
 	@Id

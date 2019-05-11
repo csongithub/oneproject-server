@@ -36,22 +36,30 @@ public class ProjectPersistence extends AbstractPersistence{
 	
 	
 	public List<Project> getAllProjects(){
-		return repository.findAll();
+		try {
+			return repository.findAll();
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 	
 	
 	
 	public List<SummarizedProject> getSummarizedProjects(){
-		Query query = em.createQuery(GET_SUMMARIZED_PROJECT);
-		List<Object[]> projectList = query.getResultList();
-		List<SummarizedProject> summarizedProjectList = new ArrayList<SummarizedProject>();
-		for(Object[] object: projectList) {
-			SummarizedProject project = new SummarizedProject();
-			project.setProjectId((Long)object[0]);
-			project.setProjectName((String)object[1]);
-			summarizedProjectList.add(project);
+		try {
+			Query query = em.createQuery(GET_SUMMARIZED_PROJECT);
+			List<Object[]> projectList = query.getResultList();
+			List<SummarizedProject> summarizedProjectList = new ArrayList<SummarizedProject>();
+			for(Object[] object: projectList) {
+				SummarizedProject project = new SummarizedProject();
+				project.setProjectId((Long)object[0]);
+				project.setProjectName((String)object[1]);
+				summarizedProjectList.add(project);
+			}
+			return summarizedProjectList;
+		}catch(NoResultException e) {
+			return null;
 		}
-		return summarizedProjectList;
 	}
 	
 	
@@ -77,14 +85,22 @@ public class ProjectPersistence extends AbstractPersistence{
 	
 	
 	public Project getProjectById(Long projectId) {
-		return repository.findOne(projectId);
+		try {
+			return repository.findOne(projectId);
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 	
 	
 	
 	public List<Project> addOrUpdateProject(Project project){
 		repository.save(project);
-		return this.getClientProjects(project.getClientId());
+		try {
+			return this.getClientProjects(project.getClientId());
+		}catch(NoResultException e) {
+			return null;
+		}
 	}
 	
 	

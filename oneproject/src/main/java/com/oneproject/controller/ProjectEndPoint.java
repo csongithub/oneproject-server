@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oneproject.model.Project;
 import com.oneproject.model.ProjectIndividualMapping;
+import com.oneproject.model.ProjectMachineLinkage;
 import com.oneproject.model.Supplier;
 import com.oneproject.service.ProjectService;
 import com.oneproject.wrapper.ProjectIndividualMapingDataWrapper;
+import com.oneproject.wrapper.ProjectMachineWrapper;
 import com.oneproject.wrapper.SummarizedProject;
 
 /**
@@ -114,5 +116,19 @@ public class ProjectEndPoint {
 	@GetMapping(value = "getProjectSuppliers/{projectId}")
 	public List<Supplier> getProjectSuppliers(@PathVariable("projectId") Long projectId){
 		return service.getProjectSuppliers(projectId);
+	}
+	
+	
+	
+	@PostMapping(value = "addMachineToProject/{projectId}")
+	public List<ProjectMachineWrapper> addMachineToProject(@PathVariable("projectId") Long projectId, @RequestBody ProjectMachineLinkage machineLinkage){
+		return service.addMachineToProject(projectId, machineLinkage);
+	}
+	
+	
+	
+	@GetMapping(value = "getProjectMachines/{projectId}")
+	public List<ProjectMachineWrapper> getProjectMachines(@PathVariable("projectId") Long projectId){
+		return service.getProjectMachines(projectId);
 	}
 }
