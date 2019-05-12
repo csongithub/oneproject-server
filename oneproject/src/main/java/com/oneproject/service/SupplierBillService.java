@@ -76,7 +76,8 @@ public class SupplierBillService {
 				summary.setBillingPercentage(Float.parseFloat(format.format(0.0f)));
 			}
 			if(summary.getPaymentPercentage() > summary.getBillingPercentage()) {
-				summary.setAdvPercentage(summary.getPaymentPercentage() - summary.getBillingPercentage());
+				summary.setAdvPercentage(Float.parseFloat(format.format((float)(summary.getPaymentPercentage() - summary.getBillingPercentage()))));
+				//summary.setAdvPercentage(summary.getPaymentPercentage() - summary.getBillingPercentage());
 			}
 		} else {
 			summary.setBillingPercentage(Float.parseFloat(format.format(0.0f)));
