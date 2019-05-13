@@ -59,5 +59,12 @@ public class SupplierBillEndPoint {
 	public SupplierBillingSummary getSupplierBillingSummaryForProject(@PathVariable("projectId") Long projectId, @PathVariable("supplierId") Long supplierId) {
 		return service.getSupplierBillingSummaryForProject(projectId, supplierId);
 	}
+	
+	
+	
+	@GetMapping(value = "getAllSuppliersBillingSummaryForProject/{projectId}")
+	public List<SupplierBillingSummary> getAllSuppliersBillingSummaryForProject(@PathVariable("projectId") Long projectId){
+		return service.getAllSuppliersBillingSummaryForProject(projectId);
+	}
 
 }

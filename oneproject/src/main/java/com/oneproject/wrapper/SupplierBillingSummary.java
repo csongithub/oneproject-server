@@ -16,6 +16,10 @@ public class SupplierBillingSummary implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String supplierName;
+	
+	private Long supplierId;
+	
 	private Double totalBillingAmount = 0.0d;
 	
 	private Double totalPaymentAmount = 0.0d;
@@ -139,5 +143,33 @@ public class SupplierBillingSummary implements Serializable{
 	 */
 	public void setAdvPercentage(float advPercentage) {
 		this.advPercentage = advPercentage;
+	}
+
+	/**
+	 * @return the supplierName
+	 */
+	public String getSupplierName() {
+		return supplierName;
+	}
+
+	/**
+	 * @param supplierName the supplierName to set
+	 */
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+
+	/**
+	 * @return the supplierId
+	 */
+	public Long getSupplierId() {
+		return supplierId;
+	}
+
+	/**
+	 * @param supplierId the supplierId to set
+	 */
+	public void setSupplierId(Long supplierId) {
+		this.supplierId = supplierId;
 	}
 }
