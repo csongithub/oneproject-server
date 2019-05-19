@@ -29,9 +29,9 @@ public class SupplierBillingSummary implements Serializable{
 	private Double totalAdvanceAmount = 0.0d;
 	
 	private float billingPercentage = 100.0f;
-	private float paymentPercentage;
-	private float duePercentage;
-	private float advPercentage;
+	private float paymentPercentage = 0.0f;
+	private float duePercentage = 0.0f;
+	private float advPercentage = 0.0f;
 
 	/**
 	 * @return the totalBillingAmount

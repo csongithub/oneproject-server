@@ -74,6 +74,7 @@ public class MachineBillService {
 	
 	public MachineBillingSummary getMachineBillingSummaryForProject(Long machineId, Long projectId){
 		List<MachineBill> bills = factory.getMachineBillingPersistence().getMachineBillsForProject(machineId, projectId);
+		DecimalFormat format = new DecimalFormat("##.00");
 		MachineBillingSummary summary = new MachineBillingSummary();
 		if(bills != null && bills.size() > 0) {
 			Double totalBillingAmount = 0.0d;
@@ -93,6 +94,17 @@ public class MachineBillService {
 			}else {
 				summary.setTotalDueAmount(diff);
 			}
+			if(totalBillingAmount > 0) {
+				summary.setPaymentPercentage(Float.parseFloat(format.format((float)((totalPaidAmount/totalBillingAmount) * 100))));
+				summary.setDuePercentage(Float.parseFloat(format.format((float)((summary.getTotalDueAmount()/totalBillingAmount)*100))));
+			}else{
+				summary.setBillingPercentage(Float.parseFloat(format.format(0.0f)));
+			}
+			if(summary.getPaymentPercentage() > summary.getBillingPercentage()) {
+				summary.setAdvPercentage(Float.parseFloat(format.format((float)(summary.getPaymentPercentage() - summary.getBillingPercentage()))));
+			}
+		}else {
+			summary.setBillingPercentage(Float.parseFloat(format.format(0.0f)));
 		}
 		return summary;
 	}
