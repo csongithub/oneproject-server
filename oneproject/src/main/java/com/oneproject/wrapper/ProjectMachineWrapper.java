@@ -17,13 +17,16 @@ public class ProjectMachineWrapper implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private Long linkageId;
 	private Long machineId;
 	private String machineName;
 	private String machineNumber;
 	private String machineType;
 	private String owner;
 	private String charge; // 200 Per Month "\u20B9"
+	private Float price;
 	private Date joined;
+	private String pricingUnit;
 	/**
 	 * @return the machineId
 	 */
@@ -107,5 +110,41 @@ public class ProjectMachineWrapper implements Serializable{
 	 */
 	public void setJoined(Date joined) {
 		this.joined = joined;
+	}
+	/**
+	 * @return the pricingUnit
+	 */
+	public String getPricingUnit() {
+		return pricingUnit;
+	}
+	/**
+	 * @param pricingUnit the pricingUnit to set
+	 */
+	public void setPricingUnit(String pricingUnit) {
+		this.pricingUnit = pricingUnit;
+	}
+	/**
+	 * @return the price
+	 */
+	public Float getPrice() {
+		return price;
+	}
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	/**
+	 * @return the linkageId
+	 */
+	public Long getLinkageId() {
+		return linkageId;
+	}
+	/**
+	 * @param linkageId the linkageId to set
+	 */
+	public void setLinkageId(Long linkageId) {
+		this.linkageId = linkageId;
 	}
 }

@@ -47,11 +47,4 @@ public class MachineEndPoint {
 	public Machine getMachineById(@PathVariable("machineId") Long machineId) {
 		return service.getMachineById(machineId);
 	}
-	
-	
-	@GetMapping(value = "generateBillByPeriod")
-	public MachinePricingWrapper generateBillByPeriod(@RequestBody MachinePricingWrapper wrapper) {
-		return service.generateBillByPeriod(wrapper);
-	}
-
 }

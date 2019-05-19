@@ -227,6 +227,7 @@ public class ProjectService{
 			for(ProjectMachineLinkage projectMachineLinkage : machineLinkages) {
 				ProjectMachineWrapper wrapper = new ProjectMachineWrapper();
 				Machine machine = projectMachineLinkage.getMachine();
+				wrapper.setLinkageId(projectMachineLinkage.getLinkageId());
 				wrapper.setMachineId(machine.getMachineId());
 				wrapper.setMachineName(machine.getMachineName());
 				wrapper.setMachineNumber(machine.getMachineNumber());
@@ -235,8 +236,10 @@ public class ProjectService{
 				Individual individual = individualPersistence.getIndividualById( machine.getOwnerId());
 				String owner = individual.getFirstName() + " " + individual.getMiddleName() + " " + individual.getLastName();
 				wrapper.setOwner(owner);
+				wrapper.setPrice(projectMachineLinkage.getPrice());
 				String charge = "\u20B9" +" " + projectMachineLinkage.getPrice() + " / " + projectMachineLinkage.getPricingUnit();
 				wrapper.setCharge(charge);
+				wrapper.setPricingUnit(projectMachineLinkage.getPricingUnit());
 				Date joined = projectMachineLinkage.getJoinedOn();
 				wrapper.setJoined(joined);
 				wrappers.add(wrapper);

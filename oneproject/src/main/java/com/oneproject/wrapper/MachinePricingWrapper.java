@@ -8,11 +8,25 @@ import java.io.Serializable;
  */
 public class MachinePricingWrapper implements Serializable {
 	/**
+	 * @return the linkageId
+	 */
+	public Long getLinkageId() {
+		return linkageId;
+	}
+
+	/**
+	 * @param linkageId the linkageId to set
+	 */
+	public void setLinkageId(Long linkageId) {
+		this.linkageId = linkageId;
+	}
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long linkageID;
+	private Long linkageId;
 	
 	private Double billAmount;
 	
@@ -28,14 +42,14 @@ public class MachinePricingWrapper implements Serializable {
 	 * @return the linkageID
 	 */
 	public Long getLinkageID() {
-		return linkageID;
+		return linkageId;
 	}
 
 	/**
 	 * @param linkageID the linkageID to set
 	 */
 	public void setLinkageID(Long linkageID) {
-		this.linkageID = linkageID;
+		this.linkageId = linkageID;
 	}
 	
 	/**
