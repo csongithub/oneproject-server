@@ -3,10 +3,13 @@
  */
 package com.oneproject.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.oneproject.comparator.DateComparator;
 import com.oneproject.model.OtherBill;
 import com.oneproject.persistence.OtherBillPersistence;
 import com.oneproject.wrapper.OtherBillingSummary;
@@ -30,7 +33,9 @@ public class OtherBillService {
 	
 	
 	public List<OtherBill> getBillsForProjectId(Long  projectId) {
-		return persistence.getBillsForProjectId(projectId);
+		List<OtherBill> bills =  persistence.getBillsForProjectId(projectId);
+		Collections.sort(bills,new DateComparator(OtherBill.class));  
+		return bills;
 	}
 	
 	

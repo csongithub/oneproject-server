@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @author a698219
@@ -38,6 +40,7 @@ public class OtherBill {
 	private Long projectId;
 	
 	@Column(name = "BILLING_DATE")
+	@Temporal(TemporalType.DATE)
 	private Date billingDate;
 	
 	@OneToMany(cascade=CascadeType.ALL)
