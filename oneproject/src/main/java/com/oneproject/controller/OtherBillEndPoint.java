@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oneproject.model.OtherBill;
 import com.oneproject.service.OtherBillService;
 import com.oneproject.wrapper.OtherBillingSummary;
+import com.oneproject.wrapper.SearchCriteriaDataWrapper;
 
 /**
  * @author chandan
@@ -42,6 +43,15 @@ public class OtherBillEndPoint {
 	public List<OtherBill> getBillsForProjectId(@PathVariable("projectId") Long  projectId) {
 		return service.getBillsForProjectId(projectId);
 	}
+	
+	
+	
+	
+	@PostMapping(value = "getBillsBySearchCriteria")
+	public List<OtherBill> getBillsBySearchCriteria(@RequestBody SearchCriteriaDataWrapper wrapper){
+		return service.getBillsBySearchCriteria(wrapper);
+	}
+	
 	
 	
 	

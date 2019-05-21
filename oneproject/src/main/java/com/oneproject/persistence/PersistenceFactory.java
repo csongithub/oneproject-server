@@ -21,6 +21,8 @@ public class PersistenceFactory {
 	private MachineBillPersistence machineBillPersistence;
 	@Autowired
 	private ProjectMachineLinkagePersistence projectMachineLinkagePersistence;
+	@Autowired
+	private OtherBillPersistence otherBillPersistence;
 	
 	
 	
@@ -46,5 +48,11 @@ public class PersistenceFactory {
 	
 	public ProjectMachineLinkagePersistence getProjectMachineLinkagePersistence() {
 		return this.projectMachineLinkagePersistence;
+	}
+	
+	
+	
+	public OtherBillPersistence getOtherBillingPersistence() {
+		return this.otherBillPersistence;
 	}
 }
