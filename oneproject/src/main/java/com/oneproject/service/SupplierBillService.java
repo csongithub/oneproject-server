@@ -32,6 +32,12 @@ public class SupplierBillService {
 	
 	
 	
+	public void deleteBill(Long billId) {
+		persistenceFactory.getSupplierBillingPersistence().deleteBill(billId);
+	}
+	
+	
+	
 	public List<SupplierBill> getBillsForProjectAndSupplier(Long projectId, Long supplierId){
 		return persistenceFactory.getSupplierBillingPersistence().getSupplierBillsForProject(projectId, supplierId);
 	}

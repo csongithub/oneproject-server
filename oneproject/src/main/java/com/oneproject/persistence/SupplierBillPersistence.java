@@ -33,6 +33,12 @@ public class SupplierBillPersistence extends AbstractPersistence {
 	
 	
 	
+	public void deleteBill(Long billId) {
+		repository.delete(billId);
+	}
+	
+	
+	
 	public List<SupplierBill> getSupplierBills(Long supplierId){
 		try {
 			TypedQuery<SupplierBill> query = em.createQuery(GET_BILLS_FOR_SUPPIER, SupplierBill.class);
