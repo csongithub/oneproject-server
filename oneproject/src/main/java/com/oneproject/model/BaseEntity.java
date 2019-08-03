@@ -6,7 +6,6 @@ package com.oneproject.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
