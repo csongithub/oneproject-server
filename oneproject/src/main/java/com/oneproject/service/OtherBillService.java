@@ -5,22 +5,19 @@ package com.oneproject.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.oneproject.comparator.DateComparator;
+import com.oneproject.model.Item;
 import com.oneproject.model.OtherBill;
 import com.oneproject.persistence.PersistenceFactory;
+import com.oneproject.utils.Strings;
 import com.oneproject.wrapper.OtherBillingSummary;
 import com.oneproject.wrapper.SearchCriteriaDataWrapper;
 
 /**
- * @author chandan	
+ * @author chandan					
  *
  */	
 @Service
@@ -32,14 +29,35 @@ public class OtherBillService {
 	
 	
 	public void addBill(OtherBill bill) {
+		if(bill.getItems().size() == 0)
+			throw new RuntimeException("No Item Found");
+		validateItems(bill.getItems());
 		factory.getOtherBillingPersistence().addBill(bill);
 	}
 	
 	
 	
+	public void deleteBill(Long billId) {
+		factory.getOtherBillingPersistence().deleteBill(billId);
+	}
+	
+	
+	
+	private void validateItems(List<Item> items) {
+		int count  = 0;
+		for(Item item: items) {
+			count++;
+			if(Strings.isNullOrEmpty(item.getItemName()) || Strings.isNullOrEmpty(item.getRemark()) || item.getPrice() == null || item.getPrice() == 0.0d)
+				throw new RuntimeException("Invalid Items, Missing Item Name/Price/Remark.\nPlease Check Item number "+count); 
+		}
+		
+	}
+
+
+
 	public List<OtherBill> getBillsForProjectId(Long  projectId) {
 		List<OtherBill> bills =  factory.getOtherBillingPersistence().getBillsForProjectId(projectId);
-		Collections.sort(bills,new DateComparator(OtherBill.class));  
+		bills.sort((b1,b2) -> b2.getBillingDate().compareTo(b1.getBillingDate())); 
 		return bills;
 	}
 	
@@ -75,5 +93,11 @@ public class OtherBillService {
 			summary.setTotalBillingAmount(amount);
 		}
 		return summary;
+	}
+
+
+
+	public OtherBill getBillForProjectAndClientId(Long billId, Long projectId, Long clientId) {
+		return factory.getOtherBillingPersistence().getBillForProjectAndClientId(billId, projectId, clientId);
 	}
 }

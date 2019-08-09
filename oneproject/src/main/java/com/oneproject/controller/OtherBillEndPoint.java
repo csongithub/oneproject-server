@@ -6,6 +6,7 @@ package com.oneproject.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,12 @@ public class OtherBillEndPoint {
 	}
 	
 	
+	@DeleteMapping(value = "deleteBill/{billId}")
+	public void deleteBill(@PathVariable("billId")Long billId) {
+		service.deleteBill(billId);
+	}
+	
+	
 	
 	@GetMapping(value = "getBillsForProjectId/{projectId}")
 	public List<OtherBill> getBillsForProjectId(@PathVariable("projectId") Long  projectId) {
@@ -58,5 +65,12 @@ public class OtherBillEndPoint {
 	@GetMapping(value = "getProjectBillingSummary/{projectId}")
 	public OtherBillingSummary getProjectBillingSummary(@PathVariable("projectId")Long projectId) {
 		return service.getProjectBillingSummary(projectId);
+	}
+	
+	
+	
+	@GetMapping(value = "getBillForProjectAndClientId/{billId}/{projectId}/{clientId}")
+	public OtherBill getBillForProjectAndClientId(@PathVariable("billId")Long billId, @PathVariable("projectId")Long projectId, @PathVariable("clientId")Long clientId) {
+		return service.getBillForProjectAndClientId(billId, projectId, clientId);
 	}
 }
